@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>2026 서코크 송년회 자선 경매</title>
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --primary: #111827;
+      --accent: #f59e0b;
+      --accent-dark: #d97706;
+      --blue: #2563eb;
+      --green: #059669;
+      --red: #dc2626;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 84px;
+    }
+    .app-container {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--bg);
+    }
+    header {
+      background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+      color: #fff;
+      padding: 16px 16px 14px;
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-title {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      margin: 0;
+    }
+    .sync-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .sync-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #34d399;
+    }
+    .header-sub {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #d1d5db;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .pill {
+      background: rgba(255,255,255,0.12);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .pill-gold {
+      background: rgba(245, 158, 11, 0.22);
+      color: #fcd34d;
+    }
+
+    .alert-banner {
+      display: none;
+      background: var(--red);
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .alert-banner.show { display: flex; }
+
+    .user-bar {
+      background: #fff;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+    .user-name-btn {
+      background: #f3f4f6;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    .btn-mini {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      color: #92400e;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .section { display: none; padding: 14px 16px; }
+    .section.active { display: block; }
+
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .info-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .schedule-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .schedule-box .label { font-size: 11px; color: var(--muted); font-weight: 700; }
+    .schedule-box .val { font-size: 13px; font-weight: 800; color: var(--primary); margin-top: 3px; }
+
+    .item-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .item-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 190px;
+      background: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .item-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .no-img-placeholder {
+      color: #6b7280;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .item-num-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(17, 24, 39, 0.9);
+      color: #fcd34d;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+    .item-timer-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(37, 99, 235, 0.92);
+      color: #fff;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 8px;
+    }
+    .item-timer-badge.urgent { background: var(--red); }
+    .item-timer-badge.ended { background: #4b5563; }
+    .item-body { padding: 14px; }
+    .item-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin: 0 0 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .donor-tag {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+      background: #f3f4f6;
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .item-desc {
+      font-size: 13px;
+      color: #4b5563;
+      margin: 0 0 12px;
+      line-height: 1.45;
+    }
+    .price-box {
+      background: #f9fafb;
+      border: 1px solid #f3f4f6;
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .price-label { font-size: 11px; color: var(--muted); font-weight: 700; }
+    .price-val { font-size: 18px; font-weight: 900; color: var(--primary); }
+    .leader-info { text-align: right; font-size: 12px; font-weight: 700; color: var(--blue); }
+    .bid-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+    .btn-bid {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 6px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .btn-bid:active { transform: scale(0.98); opacity: 0.9; }
+    .btn-bid.accent { background: var(--accent-dark); }
+    .btn-bid:disabled { background: #9ca3af; cursor: not-allowed; }
+
+    .form-group { margin-bottom: 13px; }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 5px;
+      color: var(--primary);
+    }
+    .form-control {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 14px;
+      background: #fff;
+    }
+    .photo-preview {
+      margin-top: 8px;
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      display: none;
+      border: 1px solid var(--border);
+    }
+    .btn-submit {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .btn-submit:disabled { background: #9ca3af; }
+
+    .ticket-card {
+      display: none;
+      margin-top: 14px;
+      background: #fffbeb;
+      border: 2px dashed #f59e0b;
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+    }
+    .ticket-card.show { display: block; }
+    .ticket-num {
+      font-size: 34px;
+      font-weight: 900;
+      color: #b45309;
+      margin: 4px 0;
+    }
+
+    .account-box {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .account-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      gap: 8px;
+    }
+    .btn-copy {
+      background: #111827;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      z-index: 40;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      padding: 10px 4px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .nav-btn span.icon { font-size: 18px; }
+    .nav-btn.active { color: var(--primary); font-weight: 900; }
+
+    .toast {
+      position: fixed;
+      bottom: 82px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(17, 24, 39, 0.94);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 100;
+      display: none;
+      max-width: 90%;
+      text-align: center;
+    }
+    .toast.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <div class="header-top">
+        <h1 class="brand-title">🔨 2026 서코크 송년회 자선 경매</h1>
+        <span class="sync-badge" id="syncStatusBadge">
+          <span class="sync-dot"></span>
+          <span id="syncStatusText">저장소 동기화됨</span>
+        </span>
+      </div>
+      <div class="header-sub">
+        <span class="pill">등록 ~12/7(월) 24:00</span>
+        <span class="pill pill-gold">입찰 12/12(토) 08:30~09:30</span>
+      </div>
+    </header>
+
+    <div class="alert-banner" id="outbidBanner">
+      <span id="outbidText">⚠️ 다른 크루원이 더 높은 금액을 입찰했습니다!</span>
+      <button onclick="dismissOutbid()" style="background:rgba(0,0,0,0.25);border:none;color:#fff;padding:4px 8px;border-radius:6px;font-weight:700;">확인</button>
+    </div>
+
+    <div class="user-bar">
+      <div>
+        내 닉네임: <button class="user-name-btn" id="nicknameBtn" onclick="changeNickname()">서코크러너</button>
+      </div>
+      <button class="btn-mini" onclick="switchTab('guide')">📌 안내·기부계좌</button>
+    </div>
+
+    <!-- 1. 경매 목록 탭 -->
+    <section id="tab-auction" class="section active">
+      <div class="info-card" style="padding:11px 14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:13px;font-weight:800;">등록된 경매 물품 <span id="itemCount" style="color:var(--blue);">0</span>건</span>
+          <button class="btn-mini" onclick="manualRefresh()">🔄 새로고침</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;">
+          마감 1분 이내 입찰 시 해당 물건만 <strong>+1분 자동 연장</strong> · 낙찰금 전액 기부
+        </div>
+      </div>
+
+      <div id="itemsContainer"></div>
+    </section>
+
+    <!-- 2. 물건 올리기 탭 -->
+    <section id="tab-register" class="section">
+      <div class="info-card">
+        <h3>📦 아끼던 러닝용품·물건 내놓기</h3>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 12px;line-height:1.45;">
+          <strong>12월 7일(월) 자정(24:00)</strong>까지 미리 올려주세요. 등록 즉시 고유 번호표가 발급되며, 사진은 자동 압축되어 사라지지 않고 안전하게 저장됩니다.
+        </p>
+
+        <div class="form-group">
+          <label>물건 사진 (선택 · 자동 용량 최적화)</label>
+          <input type="file" id="itemPhotoInput" accept="image/*" class="form-control" onchange="handlePhotoSelect(event)" />
+          <img id="photoPreview" class="photo-preview" alt="미리보기" />
+        </div>
+
+        <div class="form-group">
+          <label>물건 이름 *</label>
+          <input type="text" id="itemNameInput" class="form-control" placeholder="예: 알파플라이3 265mm / 러닝 조끼" maxlength="40" />
+        </div>
+
+        <div class="form-group">
+          <label>한 줄 설명 *</label>
+          <input type="text" id="itemDescInput" class="form-control" placeholder="예: 30km 주행, 상태 최상, 세탁 완료" maxlength="80" />
+        </div>
+
+        <div class="form-group">
+          <label>경매 시작가 (원) *</label>
+          <input type="number" id="itemPriceInput" class="form-control" placeholder="예: 10000" step="1000" min="1000" />
+        </div>
+
+        <button class="btn-submit" id="registerBtn" onclick="registerItem()">🔨 경매 물건 등록 및 번호표 받기</button>
+
+        <div class="ticket-card" id="ticketResult">
+          <div style="font-size:12px;font-weight:800;color:#92400e;">✅ 등록 및 저장 완료! 물건에 아래 번호를 붙여주세요</div>
+          <div class="ticket-num" id="issuedNumber">#01</div>
+          <div style="font-size:13px;font-weight:700;" id="issuedTitle">물건명</div>
+          <div style="font-size:11px;color:#78350f;margin-top:6px;">
+            12월 12일(토) 행사 당일 진열대에 물건만 가져다 두시면 됩니다.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 내 입찰·낙찰 탭 -->
+    <section id="tab-my" class="section">
+      <div class="account-box">
+        <div style="font-size:12px;font-weight:800;color:#92400e;">💛 서코크 기부런 공식 통장 (낙찰금 전액 기부)</div>
+        <div class="account-row">
+          <div>
+            <div style="font-size:15px;font-weight:900;color:#111827;">카카오뱅크 3333390278526</div>
+            <div style="font-size:12px;color:#78350f;font-weight:700;">예금주: 서코크기부런 (물건 내주신 분 성함으로 기부)</div>
+          </div>
+          <button class="btn-copy" onclick="copyAccount()">계좌 복사</button>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>🏆 내가 참여 중 / 1등 중인 물건</h3>
+        <div id="myBidsContainer" style="font-size:13px;color:var(--muted);">아직 입찰한 물건이 없습니다.</div>
+      </div>
+
+      <div class="info-card">
+        <h3>🎁 내가 내놓은 물건</h3>
+        <div id="myItemsContainer" style="font-size:13px;color:var(--muted);">아직 등록한 물건이 없습니다.</div>
+      </div>
+    </section>
+
+    <!-- 4. 안내 및 QR 탭 -->
+    <section id="tab-guide" class="section">
+      <div class="info-card">
+        <h3>📅 2026 서코크 송년회 자선 경매 안내</h3>
+        <div class="schedule-grid">
+          <div class="schedule-box">
+            <div class="label">① 물건 내놓기</div>
+            <div class="val">~ 12/7(월) 24:00</div>
+          </div>
+          <div class="schedule-box">
+            <div class="label">② 실시간 입찰</div>
+            <div class="val">12/12(토) 08:30~09:30</div>
+          </div>
+        </div>
+        <ul style="font-size:13px;line-height:1.6;padding-left:18px;margin:12px 0 0;color:#374151;">
+          <li><strong>자동 연장:</strong> 마감 1분 안에 입찰이 들어오면 해당 물건만 <strong>1분 자동 연장</strong>됩니다.</li>
+          <li><strong>낙찰 및 이체:</strong> 마감 시 자동 낙찰되며, 현장 이체 후 번호표로 물건을 수령합니다.</li>
+          <li><strong>기부 안내:</strong> 낙찰금 전액은 물건을 내주신 분 이름으로 기부됩니다.</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>📱 현장 안내판용 접속 QR 생성</h3>
+        <p style="font-size:12px;color:var(--muted);margin:0 0 10px;">
+          호스팅된 웹 주소(예: <code>https://...tiiny.site</code>)를 입력하면 크루원 스캔용 QR 코드가 생성됩니다.
+        </p>
+        <div style="display:flex;gap:6px;margin-bottom:10px;">
+          <input type="url" id="qrUrlInput" class="form-control" placeholder="https://주소입력" />
+          <button class="btn-copy" onclick="generateQR()">QR 생성</button>
+        </div>
+        <div style="text-align:center;padding:10px;background:#f9fafb;border-radius:12px;">
+          <canvas id="qrCanvas" width="200" height="200" style="border:4px solid #fff;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,0.08);"></canvas>
+          <div id="qrLabel" style="font-size:11px;color:var(--muted);margin-top:6px;">2026 서코크 송년회 자선 경매</div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>🛠️ 진행자 테스트 도구</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn-mini" onclick="simulateOutbid()">🔔 1등 밀림 알림 테스트</button>
+          <button class="btn-mini" onclick="resetDemoData()" style="color:#dc2626;border-color:#fca5a5;">🗑️ 샘플 초기화</button>
+        </div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" id="nav-auction" onclick="switchTab('auction')">
+        <span class="icon">🔨</span>
+        <span>경매장</span>
+      </button>
+      <button class="nav-btn" id="nav-register" onclick="switchTab('register')">
+        <span class="icon">➕</span>
+        <span>물건 올리기</span>
+      </button>
+      <button class="nav-btn" id="nav-my" onclick="switchTab('my')">
+        <span class="icon">🏆</span>
+        <span>내 입찰·계좌</span>
+      </button>
+      <button class="nav-btn" id="nav-guide" onclick="switchTab('guide')">
+        <span class="icon">📱</span>
+        <span>안내·QR</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="toast" id="toastMsg"></div>
+
+  <script>
+    const STORAGE_KEY = 'seokoke_auction_2026_v4_items';
+    const NICK_KEY = 'seokoke_auction_2026_nickname';
+    const REMOTE_API = 'https://kvdb.io/A9xK2mP7qR4wL8nV5tY1zB/seokoke_2026_auction';
+
+    let currentUser = localStorage.getItem(NICK_KEY) || ('서코크_' + Math.floor(100 + Math.random() * 900));
+    localStorage.setItem(NICK_KEY, currentUser);
+
+    let compressedPhotoData = '';
+    let items = [];
+
+    const DEFAULT_END_TS = new Date('2026-12-12T09:30:00+09:00').getTime();
+
+    function getSeedItems() {
+      return [
+        {
+          id: 'item_seed_1',
+          num: 1,
+          name: '나이키 줌X 베이퍼플라이 3 (265mm)',
+          desc: '대회 1회 착용(42km), 반발력 최상 · 박스 포함',
+          donor: '서코크운영진',
+          startPrice: 30000,
+          currentPrice: 35000,
+          leader: '서코크러너_12',
+          endTime: DEFAULT_END_TS,
+          photo: ''
+        },
+        {
+          id: 'item_seed_2',
+          num: 2,
+          name: '모르텐 젤 100 + 카페인 100 세트 (6포)',
+          desc: '유통기한 2027년 넉넉 · 풀코스 대회 대비용',
+          donor: '석촌호수팩맨',
+          startPrice: 10000,
+          currentPrice: 12000,
+          leader: '서코크러너_07',
+          endTime: DEFAULT_END_TS,
+          photo: ''
+        }
+      ];
+    }
+
+    function loadLocalItems() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    function saveLocalItems(list) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      } catch (e) {
+        const slim = list.map((it, idx) => idx < list.length - 5 ? { ...it, photo: '' } : it);
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
+        } catch (err) {}
+      }
+    }
+
+    async function syncFromServer() {
+      setSyncStatus('동기화 중...', false);
+      try {
+        const res = await fetch(REMOTE_API, { method: 'GET', cache: 'no-store' });
+        if (res.ok) {
+          const text = await res.text();
+          if (text) {
+            const remoteList = JSON.parse(text);
+            if (Array.isArray(remoteList) && remoteList.length > 0) {
+              const localList = loadLocalItems() || [];
+              const map = new Map();
+              remoteList.forEach(it => map.set(it.id, it));
+              localList.forEach(it => {
+                if (!map.has(it.id)) {
+                  map.set(it.id, it);
+                } else {
+                  const existing = map.get(it.id);
+                  if (it.currentPrice > existing.currentPrice) map.set(it.id, it);
+                }
+              });
+              items = Array.from(map.values()).sort((a, b) => a.num - b.num);
+              saveLocalItems(items);
+              renderAll();
+              setSyncStatus('실시간 공유 연결됨', true);
+              return;
+            }
+          }
+        }
+      } catch (e) {}
+
+      const local = loadLocalItems();
+      if (local) {
+        items = local;
+      } else if (items.length === 0) {
+        items = getSeedItems();
+        saveLocalItems(items);
+      }
+      renderAll();
+      setSyncStatus('기기 안전 저장됨', true);
+    }
+
+    async function pushToServer(updatedList) {
+      saveLocalItems(updatedList);
+      try {
+        await fetch(REMOTE_API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedList)
+        });
+        setSyncStatus('실시간 공유 저장됨', true);
+      } catch (e) {
+        setSyncStatus('기기 안전 저장됨', true);
+      }
+    }
+
+    function setSyncStatus(msg, ok) {
+      const el = document.getElementById('syncStatusText');
+      if (el) el.textContent = msg;
+    }
+
+    function handlePhotoSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const MAX_W = 420;
+          let w = img.width;
+          let h = img.height;
+          if (w > MAX_W) {
+            h = Math.round(h * (MAX_W / w));
+            w = MAX_W;
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          compressedPhotoData = canvas.toDataURL('image/jpeg', 0.65);
+
+          const preview = document.getElementById('photoPreview');
+          preview.src = compressedPhotoData;
+          preview.style.display = 'block';
+          showToast('사진 용량 최적화 완료!');
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function registerItem() {
+      const name = document.getElementById('itemNameInput').value.trim();
+      const desc = document.getElementById('itemDescInput').value.trim();
+      const price = parseInt(document.getElementById('itemPriceInput').value, 10);
+
+      if (!name) return showToast('물건 이름을 입력해 주세요.');
+      if (!desc) return showToast('한 줄 설명을 입력해 주세요.');
+      if (!price || price < 1000) return showToast('시작가는 1,000원 이상 입력해 주세요.');
+
+      const btn = document.getElementById('registerBtn');
+      btn.disabled = true;
+      btn.textContent = '안전하게 저장하는 중...';
+
+      const maxNum = items.reduce((m, it) => Math.max(m, Number(it.num) || 0), 0);
+      const nextNum = maxNum + 1;
+      const formattedNum = '#' + String(nextNum).padStart(2, '0');
+
+      const newItem = {
+        id: 'item_' + Date.now() + '_' + Math.floor(Math.random() * 1000),
+        num: nextNum,
+        name: name,
+        desc: desc,
+        donor: currentUser,
+        startPrice: price,
+        currentPrice: price,
+        leader: '입찰 대기',
+        endTime: DEFAULT_END_TS,
+        photo: compressedPhotoData || ''
+      };
+
+      items.push(newItem);
+      await pushToServer(items);
+
+      document.getElementById('issuedNumber').textContent = formattedNum;
+      document.getElementById('issuedTitle').textContent = name + ' (시작가 ' + price.toLocaleString() + '원)';
+      document.getElementById('ticketResult').classList.add('show');
+
+      document.getElementById('itemNameInput').value = '';
+      document.getElementById('itemDescInput').value = '';
+      document.getElementById('itemPriceInput').value = '';
+      document.getElementById('itemPhotoInput').value = '';
+      document.getElementById('photoPreview').style.display = 'none';
+      compressedPhotoData = '';
+
+      btn.disabled = false;
+      btn.textContent = '🔨 경매 물건 등록 및 번호표 받기';
+
+      renderAll();
+      showToast(formattedNum + ' 물건이 영구 저장되었습니다!');
+    }
+
+    async function placeBid(itemId, addAmount) {
+      const idx = items.findIndex(it => it.id === itemId);
+      if (idx === -1) return;
+
+      const item = items[idx];
+      const now = Date.now();
+      if (now >= item.endTime) {
+        return showToast('이미 마감된 경매 물건입니다.');
+      }
+
+      const newPrice = item.currentPrice + addAmount;
+      item.currentPrice = newPrice;
+      item.leader = currentUser;
+
+      let extended = false;
+      if (item.endTime - now <= 60000) {
+        item.endTime += 60000;
+        extended = true;
+      }
+
+      await pushToServer(items);
+      renderAll();
+
+      if (extended) {
+        showToast('🔥 마감 1분 내 입찰! 해당 물건 마감 1분 자동 연장!');
+      } else {
+        showToast('#' + String(item.num).padStart(2, '0') + ' ' + newPrice.toLocaleString() + '원 1등 입찰 완료!');
+      }
+    }
+
+    function formatRemaining(ms) {
+      if (ms <= 0) return '마감 완료';
+      const totalSec = Math.floor(ms / 1000);
+      const d = Math.floor(totalSec / 86400);
+      const h = Math.floor((totalSec % 86400) / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      if (d > 0) return `D-${d}일 ${h}시간`;
+      return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    function renderAll() {
+      document.getElementById('nicknameBtn').textContent = currentUser;
+      document.getElementById('itemCount').textContent = items.length;
+
+      const container = document.getElementById('itemsContainer');
+      const now = Date.now();
+
+      if (items.length === 0) {
+        container.innerHTML = '<div class="info-card" style="text-align:center;color:var(--muted);">등록된 물건이 없습니다. [물건 올리기]에서 첫 물건을 등록해 보세요!</div>';
+      } else {
+        container.innerHTML = items.map(item => {
+          const numStr = '#' + String(item.num).padStart(2, '0');
+          const remain = item.endTime - now;
+          const isEnded = remain <= 0;
+          const isUrgent = !isEnded && remain <= 60000;
+          const isMine = item.leader === currentUser;
+
+          return `
+            <div class="item-card">
+              <div class="item-img-wrap">
+                ${item.photo
+                  ? `<img src="${item.photo}" alt="${item.name}" />`
+                  : `<div class="no-img-placeholder">🏃‍♂️ 2026 서코크 자선경매<br/><span style="font-size:11px;font-weight:500;">실물은 12/12(토) 진열대에서 확인</span></div>`
+                }
+                <span class="item-num-badge">${numStr}</span>
+                <span class="item-timer-badge ${isEnded ? 'ended' : (isUrgent ? 'urgent' : '')}" data-endtime="${item.endTime}">
+                  ${isEnded ? '낙찰 마감' : '⏰ ' + formatRemaining(remain)}
+                </span>
+              </div>
+              <div class="item-body">
+                <div class="item-title">
+                  <span>${escapeHtml(item.name)}</span>
+                  <span class="donor-tag">기증: ${escapeHtml(item.donor)}</span>
+                </div>
+                <p class="item-desc">${escapeHtml(item.desc)}</p>
+                <div class="price-box">
+                  <div>
+                    <div class="price-label">현재 최고가 (시작 ${item.startPrice.toLocaleString()}원)</div>
+                    <div class="price-val">${item.currentPrice.toLocaleString()}원</div>
+                  </div>
+                  <div class="leader-info">
+                    ${isMine ? '👑 내가 현재 1등!' : '현재 1등: ' + escapeHtml(item.leader)}
+                  </div>
+                </div>
+                <div class="bid-actions">
+                  <button class="btn-bid" ${isEnded ? 'disabled' : ''} onclick="placeBid('${item.id}', 1000)">+1,000원</button>
+                  <button class="btn-bid" ${isEnded ? 'disabled' : ''} onclick="placeBid('${item.id}', 3000)">+3,000원</button>
+                  <button class="btn-bid accent" ${isEnded ? 'disabled' : ''} onclick="placeBid('${item.id}', 5000)">+5,000원</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const myLeading = items.filter(it => it.leader === currentUser);
+      const myBidsEl = document.getElementById('myBidsContainer');
+      if (myLeading.length === 0) {
+        myBidsEl.innerHTML = '현재 1등으로 입찰 중인 물건이 없습니다.';
+      } else {
+        myBidsEl.innerHTML = myLeading.map(it => `
+          <div style="padding:8px 0;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;">
+            <strong>#${String(it.num).padStart(2,'0')} ${escapeHtml(it.name)}</strong>
+            <span style="color:var(--blue);font-weight:800;">${it.currentPrice.toLocaleString()}원</span>
+          </div>
+        `).join('');
+      }
+
+      const myDonated = items.filter(it => it.donor === currentUser);
+      const myItemsEl = document.getElementById('myItemsContainer');
+      if (myDonated.length === 0) {
+        myItemsEl.innerHTML = '내가 등록한 물건이 없습니다.';
+      } else {
+        myItemsEl.innerHTML = myDonated.map(it => `
+          <div style="padding:8px 0;border-bottom:1px solid #f3f4f6;display:flex;justify-content:space-between;">
+            <strong>#${String(it.num).padStart(2,'0')} ${escapeHtml(it.name)}</strong>
+            <span style="font-weight:700;">현재 ${it.currentPrice.toLocaleString()}원</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[m]));
+    }
+
+    setInterval(() => {
+      const now = Date.now();
+      document.querySelectorAll('.item-timer-badge').forEach(el => {
+        const end = Number(el.getAttribute('data-endtime'));
+        const rem = end - now;
+        if (rem <= 0) {
+          el.textContent = '낙찰 마감';
+          el.className = 'item-timer-badge ended';
+        } else {
+          el.textContent = '⏰ ' + formatRemaining(rem);
+          el.className = 'item-timer-badge' + (rem <= 60000 ? ' urgent' : '');
+        }
+      });
+    }, 1000);
+
+    setInterval(() => {
+      const activeTag = document.activeElement ? document.activeElement.tagName : '';
+      if (activeTag !== 'INPUT' && activeTag !== 'TEXTAREA') {
+        syncFromServer();
+      }
+    }, 10000);
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.add('active');
+      document.getElementById('nav-' + tabName).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function changeNickname() {
+      const next = prompt('경매에 사용할 크루 닉네임을 입력하세요:', currentUser);
+      if (next && next.trim()) {
+        currentUser = next.trim().slice(0, 15);
+        localStorage.setItem(NICK_KEY, currentUser);
+        renderAll();
+        showToast('닉네임이 "' + currentUser + '"(으)로 변경되었습니다.');
+      }
+    }
+
+    function copyAccount() {
+      const acc = '3333390278526';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(acc).then(() => {
+          showToast('카카오뱅크 3333390278526 복사 완료!');
+        }).catch(() => fallbackCopy(acc));
+      } else {
+        fallbackCopy(acc);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('카카오뱅크 3333390278526 복사 완료!');
+    }
+
+    function simulateOutbid() {
+      document.getElementById('outbidText').textContent = '⚠️ [알림] 다른 크루원이 #01 물건에 더 높은 금액을 입찰해 1등에서 밀렸습니다!';
+      document.getElementById('outbidBanner').classList.add('show');
+    }
+
+    function dismissOutbid() {
+      document.getElementById('outbidBanner').classList.remove('show');
+    }
+
+    async function manualRefresh() {
+      await syncFromServer();
+      showToast('최신 경매 목록을 불러왔습니다.');
+    }
+
+    async function resetDemoData() {
+      if (!confirm('샘플 물품으로 초기화할까요?')) return;
+      items = getSeedItems();
+      await pushToServer(items);
+      renderAll();
+      showToast('초기화 완료');
+    }
+
+    function generateQR() {
+      const input = document.getElementById('qrUrlInput').value.trim() || window.location.href;
+      const canvas = document.getElementById('qrCanvas');
+      const ctx = canvas.getContext('2d');
+      const size = 200;
+      const modules = 25;
+      const cell = size / modules;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, size, size);
+      ctx.fillStyle = '#111827';
+
+      let hash = 2166136261;
+      for (let i = 0; i < input.length; i++) {
+        hash ^= input.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+
+      function drawFinder(ox, oy) {
+        ctx.fillStyle = '#111827';
+        ctx.fillRect(ox * cell, oy * cell, 7 * cell, 7 * cell);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect((ox + 1) * cell, (oy + 1) * cell, 5 * cell, 5 * cell);
+        ctx.fillStyle = '#111827';
+        ctx.fillRect((ox + 2) * cell, (oy + 2) * cell, 3 * cell, 3 * cell);
+      }
+
+      for (let r = 0; r < modules; r++) {
+        for (let c = 0; c < modules; c++) {
+          const inFinder = (r < 8 && c < 8) || (r < 8 && c >= modules - 8) || (r >= modules - 8 && c < 8);
+          if (inFinder) continue;
+          const seed = Math.abs(Math.sin(hash + r * 31 + c * 17) * 10000);
+          if (Math.floor(seed) % 2 === 0) {
+            ctx.fillRect(c * cell, r * cell, cell, cell);
+          }
+        }
+      }
+      drawFinder(0, 0);
+      drawFinder(modules - 7, 0);
+      drawFinder(0, modules - 7);
+
+      document.getElementById('qrLabel').textContent = input.slice(0, 38);
+      showToast('QR 코드가 생성되었습니다.');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toastMsg');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const local = loadLocalItems();
+      if (local) {
+        items = local;
+        renderAll();
+      }
+      syncFromServer();
+      generateQR();
+    });
+  </script>
+</body>
+</html>
